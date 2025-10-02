@@ -3,6 +3,7 @@ import morgan from 'morgan';
 
 import config from './src/config/config.js';
 import userRouter from './src/routes/user.routes.js';
+import Authrouter from './src/routes/auth.routes.js';
 
 import './src/services/database.js';
 import './src/models/user.model.js'; 
@@ -17,6 +18,7 @@ app.use(express.json())
 // routes
 // app.use('/api/posts', postRouter)
 app.use('/api/users', userRouter)
+app.use('/api/auth', Authrouter)
 
 app.get('/', (req,res)=>{
   res.send("hello world");
