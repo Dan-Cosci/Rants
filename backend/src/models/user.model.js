@@ -27,7 +27,7 @@ class User extends BaseModel{
       id: this.id,
       username: this.username,
       email: this.email,
-      createdAt: new Date(),
+      createdAt: this.createdAt ? null : new Date(),
       updatedAt: new Date()
     };
   
@@ -52,7 +52,7 @@ class User extends BaseModel{
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Invalid email format');
     const query = `SELECT * FROM ${this.tableName} WHERE email = ?`;
     const [rows] = await db.execute(query, [email]);
-    return rows[0];
+    return new User(rows[0]);
   }
 
   async update(id, data) {

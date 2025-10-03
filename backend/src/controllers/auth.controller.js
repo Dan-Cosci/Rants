@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import bycrpt from 'bcrypt';
 
 import config from "../config/config.js";
 import db from "../services/database.js";
@@ -52,15 +53,52 @@ export const SignUp = async (req, res) => {
   
 export const SignIn = async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json("Email and password are required.");
-  
-  try {
-    
-  } catch (error) {
-    next(error);
+
+  if (!email || !password) {
+    return res.status(400).json({
+      success: false,
+      message: "Email and password are required."
+    });
   }
 
+  try {
+    // Fetch user by email
+    const user = new User()
+    const signUser = await user.findByEmail(email);
 
+    if (!signUser.email) {
+      return res.status(401).json({ success: false, message: "Email does not exist." });
+    }
+
+    // Compare password
+    const valid = await bycrpt.compare(password,signUser.password);
+    if (!valid) {
+      return res.status(401).json({ success: false, message: "Invalid password." });
+    }
+
+    // Generate JWT (make sure your model has `id` or `user_id`)
+    const token = jwt.sign(
+      { id: signUser.id || signUser.user_id },
+      config.jwt.secretKey,
+      { expiresIn: config.jwt.expiresIn }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "User login successful",
+      data: {
+        user: signUser,
+        token
+      }
+    });
+  } catch (error) {
+    console.error("SignIn error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong during sign in"
+    });
+  }
 };
+
 
 export const SignOut = async (req, res) => {};
