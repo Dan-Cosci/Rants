@@ -1,9 +1,11 @@
 import express from "express";
-import { getUsers } from "../controllers/user.controller.js";
+
+import { getUserById, getUsers } from "../controllers/user.controller.js";
+import Authorize from "../middlewares/auth.middleware.js"
 
 const userRouter = express.Router();
 
 userRouter.get('/', getUsers);
-// userRouter.get('/:id', getUserById);
+userRouter.get('/:id', Authorize, getUserById);
 
 export default userRouter;  

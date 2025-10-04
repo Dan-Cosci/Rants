@@ -25,7 +25,7 @@ class Post extends BaseModel {
     const sql = `INSERT INTO ${this.tableName} (user_id, title, content) VALUES (?, ?, ?)`;
     const [result] = await db.execute(sql, [this.user_id, this.title, this.content]);
     this.id = result.insertId;
-    return this.id;
+    return new Post(self);
   }
 
   /** Get all posts */

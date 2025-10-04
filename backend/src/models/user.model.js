@@ -13,6 +13,12 @@ class User extends BaseModel{
     this.updatedAt = user.updatedAt || null;
   }
 
+  async getUsers(){
+    const sql = `SELECT * FROM ${this.tableName}`;
+    const [res] = await db.execute(sql);
+    return res;
+  }
+
   async save() {
     if (!this.username || !this.email || !this.password){ throw new Error('Missing required fields');  }
     const sql = `INSERT INTO ${this.tableName} (username, email, password) VALUES (?, ?, ?)`;
@@ -23,13 +29,13 @@ class User extends BaseModel{
     ]);
     this.id = result.insertId;
 
-    return {
+    return new User({
       id: this.id,
       username: this.username,
       email: this.email,
       createdAt: this.createdAt ? null : new Date(),
       updatedAt: new Date()
-    };
+    });
   
   }
 

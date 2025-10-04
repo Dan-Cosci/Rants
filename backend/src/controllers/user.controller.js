@@ -1,14 +1,11 @@
-
-// Simple in-memory user dataset for demonstration.
-// Replace this with database calls in a real application.
-const USERS = [
-  { id: '1', name: 'Alice', email: 'alice@example.com' },
-  { id: '2', name: 'Bob', email: 'bob@example.com' },
-];
+import User from "../models/user.model.js";
 
 export async function getUsers(req, res) {
   try {
-    return res.status(200).json({ data: USERS });
+    const u = new User();
+    const users = await u.getUsers();
+
+    return res.status(200).json({success:true, data: users });
   } catch (err) {
     console.error('getUsers error:', err);
     return res.status(500).json({ message: 'Internal server error' });
@@ -17,8 +14,10 @@ export async function getUsers(req, res) {
 
 export async function getUserById(req, res) {
   try {
+    const u =  new User();
     const { id } = req.params;
-    const user = USERS.find((u) => u.id === id);
+    console.log(id)
+    const user = await u.findById(id);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });

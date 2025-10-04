@@ -18,7 +18,7 @@ export const SignUp = async (req, res) => {
     // Execute query (no callback, just await)
     const user = new User({ username, email, password: hashedPassword });
     const newUser = await user.save();
-    const token = jwt.sign({ id: newUser.insertId }, config.jwt.secretKey, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign({ id: newUser.id }, config.jwt.secretKey, { expiresIn: config.jwt.expiresIn });
 
     // Commit transaction
     await db.commit();
