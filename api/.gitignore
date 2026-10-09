@@ -1,0 +1,59 @@
+# Binaries and compiled output
+/bin/
+/dist/
+/build/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.prof
+
+# Go workspace files
+go.work
+go.work.sum
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test and coverage output
+coverage.out
+coverage.html
+*.coverprofile
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Local databases and database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Air live-reload temporary output
+.air/
+.air.toml.local
+
+# Local configuration overrides
+config.local.yaml
+config.local.yml
