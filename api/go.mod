@@ -1,4 +1,4 @@
-module api
+module github.com/Dan-Cosci/Rants
 
 go 1.27.1
 

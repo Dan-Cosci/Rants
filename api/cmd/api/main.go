@@ -1,9 +1,10 @@
 package main
 
 import (
-	"api/internal/app"
-	"api/internal/config"
 	"log"
+
+	"github.com/Dan-Cosci/Rants/internal/app"
+	"github.com/Dan-Cosci/Rants/internal/config"
 )
 
 func main() {
