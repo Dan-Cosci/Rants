@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strconv"
 
 	"github.com/Dan-Cosci/Rants/internal/app"
 	"github.com/Dan-Cosci/Rants/internal/config"
@@ -18,6 +19,6 @@ func main() {
 		log.Fatal("Failed to load config")
 	}
 
-	server.Run(":" + cfg.Port)
+	server.Run(":" + strconv.FormatUint(uint64(cfg.Port), 10))
 
 }
