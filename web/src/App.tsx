@@ -1,5 +1,7 @@
 import { createBrowserRouter, Outlet } from 'react-router'
 import Feed from './pages/Feed';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const RootLayout = (
   <main className='flex flex-col min-h-screen min-w-screen bg-primary text-content'>
@@ -21,7 +23,10 @@ const router = createBrowserRouter([
     path: "/",
     element: RootLayout,
     children: [
-      { index: true, Component: Feed }
+      { index: true, Component: Feed },
+      { path: "login", Component: Login },
+      { path:"register", Component: Register },
+
     ]
   }
 ]);
